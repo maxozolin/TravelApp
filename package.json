@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "description": "App that lets user run natural language processing on articles",
+  "main": "index.js",
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "webpack-dev-server": "webpack-dev-server",
+    "firststart": "npm install && npm run prod && npm run server",
+    "test": "jest",
+    "start": "npm run prod && npm run server",
+    "dev": "webpack-dev-server  --config webpack.dev.js --open ",
+    "prod": "webpack --config webpack.prod.js",
+    "server": "node-env-run server --exec nodemon | pino-colada"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxtherussianguy/NLP_website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxtherussianguy/NLP_website/issues"
+  },
+  "homepage": "https://github.com/maxtherussianguy/NLP_website#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.2",
+    "cors": "^2.8.5",
+    "css-loader": "^4.2.1",
+    "express": "^4.17.1",
+    "file-loader": "^6.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "regenerator-runtime": "^0.13.7",
+    "request": "^2.88.2",
+    "style-loader": "^1.2.1",
+    "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "express-pino-logger": "^5.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "jest": "^26.3.0",
+    "jest-cli": "^26.3.0",
+    "node-env-run": "^4.0.1",
+    "node-sass": "^4.14.1",
+    "nodemon": "^2.0.4",
+    "npm-run-all": "^4.1.5",
+    "path": "^0.12.7",
+    "pino-colada": "^2.0.1",
+    "sass-loader": "^9.0.3",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0",
+    "workbox-webpack-plugin": "^5.1.3"
+  }
+}

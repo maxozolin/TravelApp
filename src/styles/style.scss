@@ -1,0 +1,102 @@
+$background: rgb(228, 227, 227);
+
+
+html *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: rgb(255, 255, 255);
+
+    #root{
+        padding: 20px 0 40px 0;
+        
+        form{
+            padding: 20px 40px;
+            border-radius: 10px;
+            background: rgb(228, 228, 228);
+        }
+        
+        .mainheading{
+            text-align: center;
+            padding: 40px;
+        }
+        .notloaded{
+            text-align: center;
+        }
+        
+        .concept, .entity{
+            background: $background;
+            padding-bottom: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            .worditem{
+                padding: 20px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 5px 8px 10px rgb(184, 184, 184);
+                margin-bottom: 10px;
+            }
+            
+        }
+
+        .quotation{
+            margin:20px 0;
+            border-radius: 20px;
+            padding-bottom: 20px;
+            background:  $background;
+            .quote-wrapper{
+                margin: 20px 0;
+                padding: 40px;
+                border-radius: 20px;
+                background: white;
+                box-shadow: 5px 8px 10px rgb(184, 184, 184);
+            }
+
+        }
+        
+        .quote{
+            margin: 20px 0;
+            padding: 0 20px;
+            font-size: 24px;
+        
+        }
+        
+        .quote-wrapper{
+            .quote{
+                border-left: 4px solid orange;
+            }
+            &:nth-child(even){
+                .quote{
+                    border-left: 4px solid rgb(0, 0, 0);
+                }
+            }
+        }
+        
+        .worditem{
+            align-items: center;
+        }
+        
+        .progresswrap{
+            height: 5px;
+            .progress{
+                height: 100%;
+                vertical-align: auto;
+                margin-top: auto;
+            }
+        }
+}
+
+    @media (max-width:870px){
+        .concepts{
+            font-size: 18px;
+        }
+    }
+}
+
+
+
+
+
