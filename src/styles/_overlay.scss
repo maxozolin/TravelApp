@@ -1,0 +1,24 @@
+
+
+#root{
+    .overlay{
+        position: absolute;
+        top:0;
+        width: 100vw;
+        height: 100vh;
+        // border: 2px solid red
+        background:rgba(0, 0, 0, 0.61);
+        .button{
+            position: relative;
+            left: calc( 100vw - 3vh );
+            border:2px solid red;
+            height: 3vh;
+            width: auto;
+            color: white;
+        }
+        .modal-dialog{
+            width: 100vw;
+
+        }
+    }
+}

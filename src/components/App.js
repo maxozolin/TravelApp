@@ -1,30 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import uuid from 'uuid'
+import Modal from './Modal'
+import Navbar from './Navbar'
+import Home from './Home';
 
 const LOCAL_STORAGE_KEY = 'websiteApp.appData'
 
 function App() {
 
-    const [appData, changeData] = useState(undefined)
+    const [appData, changeData] = useState({
+        "OverlayActive": false
+    })
     const websiteNameRef = useRef()
 
 
-    useEffect(() => {
-        if (localStorage.getItem(LOCAL_STORAGE_KEY) == "undefined") return
-        const storedAppData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (storedAppData) changeData(storedAppData)
-    }, [])
+    // useEffect(() => {
+    //     if (localStorage.getItem(LOCAL_STORAGE_KEY) == "undefined") return
+    //     const storedAppData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    //     if (storedAppData) changeData(storedAppData)
+    // }, [])
 
-    useEffect(() => {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
-    }, [appData])
+    // useEffect(() => {
+    //     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
+    // }, [appData])
 
 
     let callApi = async (e) => {
         e.preventDefault()
         let url = websiteNameRef.current.value;
 
-        if (url!=="") {
+        if (url !== "") {
             const settings = {
                 method: 'post',
                 headers: {
@@ -42,9 +47,9 @@ function App() {
                     //get back data
                     let dat = await res.json();
                     console.log(dat)
-                    changeData(() => {
-                        return dat;
-                    });
+                    // changeData(() => {
+                    //     return dat;
+                    // });
                     console.log(appData);
                 } catch (error) {
                     //if there is an error in the connection log it with the data recieved
@@ -64,18 +69,39 @@ function App() {
 
 
     }
+    function exitOverlay(e) {
+        if (appData.OverlayActive == true) {
+            console.log(e.keyCode)
+            if (e.keyCode == 27) {
+                changeShow()
+            }
+        }
+    }
+
+    function changeShow(e) {
+        if (e) { e.preventDefault() }
+
+        changeData((data) => {
+            let d = Object.assign({}, data)
+
+            console.log(d)
+            d.OverlayActive = !data.OverlayActive
+            console.log(d)
+            return d
+        })
+    }
 
     return (
-        <>
-            <form className="col-md-7 mr-auto ml-auto">
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Website</label>
-                    <input type="text" className="form-control" id="websiteInput" aria-describedby="websiteInput" ref={websiteNameRef} />
-                    <small id="emailHelp" className="form-text text-muted">Enter the webite to be examined</small>
-                </div>
-                <button className="btn btn-primary" onClick={callApi}>Submit</button>
-            </form>
-        </>
+        <div>
+            <Navbar />
+            {/* <div onKeyDown={exitOverlay} className="content container">
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Launch demo modal
+            </button>
+                <Modal />
+            </div> */}
+            <Home/>
+        </div>
     );
 }
 export default App

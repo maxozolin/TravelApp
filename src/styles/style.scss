@@ -1,3 +1,8 @@
+@import './navbar';
+@import './overlay';
+@import './home';
+
+
 $background: rgb(228, 227, 227);
 
 
@@ -5,90 +10,21 @@ html *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    overflow-x:hidden;
+    
 }
 
 body{
     background: rgb(255, 255, 255);
 
     #root{
-        padding: 20px 0 40px 0;
-        
-        form{
-            padding: 20px 40px;
-            border-radius: 10px;
-            background: rgb(228, 228, 228);
-        }
-        
-        .mainheading{
-            text-align: center;
-            padding: 40px;
-        }
-        .notloaded{
-            text-align: center;
-        }
-        
-        .concept, .entity{
-            background: $background;
-            padding-bottom: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            .worditem{
-                padding: 20px;
-                background: white;
-                border-radius: 10px;
-                box-shadow: 5px 8px 10px rgb(184, 184, 184);
-                margin-bottom: 10px;
-            }
-            
+        background:rgb(107, 107, 107);
+        .app{
+            background: white;
+            height: 400vh;
         }
 
-        .quotation{
-            margin:20px 0;
-            border-radius: 20px;
-            padding-bottom: 20px;
-            background:  $background;
-            .quote-wrapper{
-                margin: 20px 0;
-                padding: 40px;
-                border-radius: 20px;
-                background: white;
-                box-shadow: 5px 8px 10px rgb(184, 184, 184);
-            }
-
-        }
-        
-        .quote{
-            margin: 20px 0;
-            padding: 0 20px;
-            font-size: 24px;
-        
-        }
-        
-        .quote-wrapper{
-            .quote{
-                border-left: 4px solid orange;
-            }
-            &:nth-child(even){
-                .quote{
-                    border-left: 4px solid rgb(0, 0, 0);
-                }
-            }
-        }
-        
-        .worditem{
-            align-items: center;
-        }
-        
-        .progresswrap{
-            height: 5px;
-            .progress{
-                height: 100%;
-                vertical-align: auto;
-                margin-top: auto;
-            }
-        }
-}
-
+    }
     @media (max-width:870px){
         .concepts{
             font-size: 18px;
@@ -96,7 +32,28 @@ body{
     }
 }
 
+html::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #929292;
+}
 
+html::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+html::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0.44, rgb(32, 34, 37)),
+									   color-stop(0.72, rgb(54, 57, 61)),
+									   color-stop(0.86, rgb(36, 39, 49)));
+}
 
 
 

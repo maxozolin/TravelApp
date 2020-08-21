@@ -1,0 +1,16 @@
+$homeheight:55vw;
+$maxhomeheight:80vh;
+#home{
+    background: rgb(75, 75, 75);
+    height: $homeheight;
+    max-height: $maxhomeheight;
+    // width: 100vw;
+    .carousel-item{
+        height: $homeheight;
+        max-height: $maxhomeheight;
+
+        &::-webkit-scrollbar{
+            width: 0px;
+        }
+    }
+}
