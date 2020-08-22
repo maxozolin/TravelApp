@@ -1,5 +1,5 @@
-#Todo
-###design:
+# Todo
+### design:
 * Carousel crop
 * Planner design
 * Carousel inner text
@@ -7,7 +7,7 @@
 * Phone screen About section list margin
 * Footer
 
-###features:
+### features:
 * get apikeys
 * choose datastructures
 * set up routes
