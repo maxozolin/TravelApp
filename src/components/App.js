@@ -3,6 +3,8 @@ import uuid from 'uuid'
 import Modal from './Modal'
 import Navbar from './Navbar'
 import Home from './Home';
+import About from './About';
+import Planner from './Planner'
 
 const LOCAL_STORAGE_KEY = 'websiteApp.appData'
 
@@ -92,7 +94,7 @@ function App() {
     }
 
     return (
-        <div>
+        <div className="app">
             <Navbar />
             {/* <div onKeyDown={exitOverlay} className="content container">
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -101,6 +103,8 @@ function App() {
                 <Modal />
             </div> */}
             <Home/>
+            <About/>
+            <Planner/>
         </div>
     );
 }

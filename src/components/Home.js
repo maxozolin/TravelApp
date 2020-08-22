@@ -1,4 +1,7 @@
 import React from 'react'
+let path = require('path');
+let appDir = path.resolve(__dirname);
+
 
 export default function Home() {
     return (
@@ -10,13 +13,13 @@ export default function Home() {
                     <li data-target="#home" data-slide-to="2"></li>
                 </ol>
                 <div className="carousel-item active" data-interval="7000">
-                    <img src="../../TempImages/pexels-mihis-alex-21014.jpg" className="d-block w-100" alt="..." />
+                    <img src={`/TempImages/pexels-mihis-alex-21014.jpg`} className="img-responsive  center-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item" data-interval="7000">
-                    <img src="../../TempImages/old-1130743_1920.jpg" className="d-block w-100" alt="..." />
+                    <img src="/TempImages/old-1130743_1920.jpg" className="d-block w-100" alt="..." />
                 </div>
                 <div className="carousel-item" data-interval="7000">
-                    <img src="../../TempImages/pexels-ylanite-koppens-697662.jpg" className="d-block w-100" alt="..." />
+                    <img src="/TempImages/pexels-ylanite-koppens-697662.jpg" className="d-block w-100" alt="..." />
                 </div>
             </div>
             <a className="carousel-control-prev" href="#home" role="button" data-slide="prev">

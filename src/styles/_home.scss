@@ -1,14 +1,20 @@
 $homeheight:55vw;
-$maxhomeheight:80vh;
+$maxhomeheight:75vh;
 #home{
     background: rgb(75, 75, 75);
     height: $homeheight;
     max-height: $maxhomeheight;
     // width: 100vw;
     .carousel-item{
+        overflow: hidden;
+        // filter: brightness(1) hue-rotate(-170deg) saturate(100%);
         height: $homeheight;
         max-height: $maxhomeheight;
-
+        img{
+            margin: -10vw 0 0 0 ;
+            // object-fit: cover;
+            // height: 100%;
+        }
         &::-webkit-scrollbar{
             width: 0px;
         }

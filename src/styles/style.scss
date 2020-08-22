@@ -1,27 +1,33 @@
 @import './navbar';
 @import './overlay';
 @import './home';
+@import './about';
+@import './planner';
 
 
 $background: rgb(228, 227, 227);
 
+html{
+    scroll-behavior: smooth;
+}
 
 html *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    overflow-x:hidden;
+    
+    // overflow-x:hidden;
     
 }
 
 body{
     background: rgb(255, 255, 255);
-
+    max-width: 100vw;
     #root{
-        background:rgb(107, 107, 107);
+
         .app{
             background: white;
-            height: 400vh;
+            // height: 400vh;
         }
 
     }
@@ -34,8 +40,7 @@ body{
 
 html::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #929292;
+	background-color: #0e0e0e;
 }
 
 html::-webkit-scrollbar
