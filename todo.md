@@ -1,13 +1,20 @@
 #Todo
 ###design:
-* Carousel crop
-* Planner design
-* Carousel inner text
+* ~~Carousel crop~~
+* ~~Phone screen About section list margin~~
+* ~~Planner wrapper~~
+    * ~~Planner Form~~
+<br/>
+* **Choose fonts**
 * Logo
-* Phone screen About section list margin
-* Footer
+* Carousel inner text 
+    * Adjust
+* Planner design
+    * Set up State
+    * Make Trip.js & _trip.scss
+    * Make Modal for Packing, Modal for Hotel Adress
 
 ###features:
-* get apikeys
 * choose datastructures
+* get apikeys
 * set up routes

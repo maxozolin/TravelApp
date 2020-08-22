@@ -14,12 +14,15 @@ export default function Home() {
                 </ol>
                 <div className="carousel-item active" data-interval="7000">
                     <img src={`/TempImages/pexels-mihis-alex-21014.jpg`} className="img-responsive  center-block w-100" alt="..." />
+                    <h1 className="carousel-caption">PLAN</h1>
                 </div>
                 <div className="carousel-item" data-interval="7000">
                     <img src="/TempImages/old-1130743_1920.jpg" className="d-block w-100" alt="..." />
+                    <h1 className="carousel-caption">NOTE</h1>
                 </div>
                 <div className="carousel-item" data-interval="7000">
                     <img src="/TempImages/pexels-ylanite-koppens-697662.jpg" className="d-block w-100" alt="..." />
+                    <h1 className="carousel-caption">GUIDE</h1>
                 </div>
             </div>
             <a className="carousel-control-prev" href="#home" role="button" data-slide="prev">

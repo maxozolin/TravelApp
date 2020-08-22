@@ -5,6 +5,7 @@ import Navbar from './Navbar'
 import Home from './Home';
 import About from './About';
 import Planner from './Planner'
+import Footer from './Footer'
 
 const LOCAL_STORAGE_KEY = 'websiteApp.appData'
 
@@ -105,6 +106,7 @@ function App() {
             <Home/>
             <About/>
             <Planner/>
+            <Footer/>
         </div>
     );
 }
