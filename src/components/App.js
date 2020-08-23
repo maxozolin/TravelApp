@@ -14,32 +14,22 @@ function App() {
     const [appData, changeData] = useState({
         "OverlayActive": false
     })
-    const websiteNameRef = useRef()
+    const cityNameRef = useRef()
 
 
-    // useEffect(() => {
-    //     if (localStorage.getItem(LOCAL_STORAGE_KEY) == "undefined") return
-    //     const storedAppData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    //     if (storedAppData) changeData(storedAppData)
-    // }, [])
-
-    // useEffect(() => {
-    //     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
-    // }, [appData])
 
 
-    let callApi = async (e) => {
-        e.preventDefault()
-        let url = websiteNameRef.current.value;
+    let callApi = async () => {
+        let city = cityNameRef.current.value;
 
-        if (url !== "") {
+        if (city !== "") {
             const settings = {
                 method: 'post',
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ "url": url })
+                body: JSON.stringify({ "city": city })
             };
             try {
                 //Post coords to server
@@ -65,34 +55,21 @@ function App() {
 
 
         } else {
-            alert("Not a website");
+            alert("Blank");
             return
         }
 
 
 
     }
-    function exitOverlay(e) {
-        if (appData.OverlayActive == true) {
-            console.log(e.keyCode)
-            if (e.keyCode == 27) {
-                changeShow()
-            }
-        }
+
+    function AddTripClick() {
+        let city = cityNameRef.current.value;
+        console.log(city)
+        callApi()
     }
 
-    function changeShow(e) {
-        if (e) { e.preventDefault() }
 
-        changeData((data) => {
-            let d = Object.assign({}, data)
-
-            console.log(d)
-            d.OverlayActive = !data.OverlayActive
-            console.log(d)
-            return d
-        })
-    }
 
     return (
         <div className="app">
@@ -105,7 +82,7 @@ function App() {
             </div> */}
             <Home/>
             <About/>
-            <Planner/>
+            <Planner btn={AddTripClick} r={cityNameRef}/>
             <Footer/>
         </div>
     );
