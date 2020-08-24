@@ -5,6 +5,8 @@ projectData = {};
 /* Express to run server and routes */
 const express = require('express');
 
+const fs = require('fs')
+
 const request = require('request');
 
 const path = require('path')
@@ -46,8 +48,9 @@ app.post('/api/app', function (req, resp) {
     let udata = req.body
     //Get the city from userdata
     let city = udata["city"]
+    let date = udata["date"]
     //Logging with UTC timestamp time
-    console.log(`requested ${city}`)
+    console.log(`requested ${city}, ${date}`)
 
     let geonameUrl = `http://api.geonames.org/searchJSON?username=${GEONAME_USER}&maxRows=1&q=${city}`
     let weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${city}`
@@ -55,22 +58,55 @@ app.post('/api/app', function (req, resp) {
 
     let promises = {}
 
-    function parseApiData(){
-        resApiData = Object.assign({}, allApiData)
 
+
+    var download = function (uri, filename, callback) {
+        request.head(uri, function (err, res, body) {
+            console.log('content-type:', res.headers['content-type']);
+            console.log('content-length:', res.headers['content-length']);
+
+            request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+        });
+    };
+
+
+    function parseApiData() {
         let error
+        resApiData.date = date
+        if (allApiData.geoname.totalResultsCount !== 0) {
+            resApiData.geoname = {
+                "country": allApiData.geoname.geonames[0].countryName,
+                "name": allApiData.geoname.geonames[0].name
+            }
+        }
+        else {
+            error = Object.assign({}, error, { "geoname": "location not found" })
+        }
 
-        if(allApiData.geoname.totalResultsCount==0){
-            error = Object.assign({}, error, {"geoname":"location not found"})
+        if (allApiData.pixabay.total !== 0) {
+            resApiData.pixabay = allApiData.pixabay.hits.map((hit) => {
+                return `/ServerImages/${hit.id.toString()}.jpg`
+            });
+
+        } else {
+            error = Object.assign({}, error, { "pixabay": "image not found" })
         }
-        if(allApiData.pixabay.total==0){
-            error = Object.assign({}, error, {"pixabay":"image not found"})
+
+        if (allApiData.weatherbit) {
+
+            resApiData.weatherbit = {
+                "temp": allApiData.weatherbit.data[0].temp,
+                "weather": allApiData.weatherbit.data[0].weather
+            }
         }
-        if(!allApiData.weatherbit){
-            error =  Object.assign({}, error, {"weatherbit":"no weather data"})
+
+
+        else {
+            error = Object.assign({}, error, { "weatherbit": "no weather data" })
         }
-        if(error){
-            resApiData.error=error
+
+        if (error) {
+            resApiData.error = error
         }
     }
 
@@ -79,13 +115,13 @@ app.post('/api/app', function (req, resp) {
 
         request(geonameUrl, { json: true }, (err, res, body) => {
 
-            if (err) { reject("error"); return console.log(err); }
+            if (err) { console.log(err);   reject("error");}
 
             allApiData["geoname"] = res.body;
-            try{
+            try {
                 weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${allApiData.geoname.geonames[0].name}`
 
-            }catch(e){
+            } catch (e) {
                 weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${city}`
 
             }
@@ -119,9 +155,24 @@ app.post('/api/app', function (req, resp) {
     promises["pixabay"] = new Promise((resolve, reject) => {
         request(pixabayUrl, { json: true }, (err, res, body) => {
             if (err) { reject("error"); return console.log(err); }
-            allApiData["pixabay"] = res.body;
-            resolve()
+            allApiData["pixabay"] = res.body
+            let promises = []
+            let i =0
+            res.body.hits.map((hit)=>{
+                console.log(hit);
+                let promise= new Promise((r,f)=>{
+
+                
+                download(hit.largeImageURL, `./ServerImages/${hit.id}.jpg`, r);
+                i++
+                })
+                promises.push(promise)
+            })
+
+            Promise.all(promises).then(()=>{resolve()})
+           
             try {
+
                 // console.log(allApiData)
             } catch (e) {
                 console.log(e)
