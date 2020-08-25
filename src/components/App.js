@@ -24,10 +24,10 @@ function App() {
     const randomRef = useRef();
 
 
-    // useEffect(() =>{
-    //     const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    //     if(storedTodos) changeData(storedTodos)
-    //   },[])
+    useEffect(() =>{
+        const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        if(storedTodos) changeData(storedTodos)
+      },[])
     
       useEffect(() => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
