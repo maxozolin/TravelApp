@@ -1,4 +1,4 @@
-#Todo
+# Todo
 
 ###features:
 * ~~get apikeys~~
@@ -13,14 +13,17 @@
     * finish design
 
 
-###design:
+### design:
 * ~~Carousel crop~~
 * ~~Phone screen About section list margin~~
 * ~~Planner wrapper~~
     * ~~Planner Form~~
 * ~~Carousel inner text~~ 
-    * ~~Adjust~~
-<br/>
+    * ~~Adjust~~  
+      
+        
+        
+
 * **Choose fonts**
 * Logo
 * Planner design
