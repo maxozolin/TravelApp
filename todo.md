@@ -7,9 +7,11 @@
 <br/>
 
 * visualize data
+    * ~~**handle errors**~~
     * ~~choose datastructure~~
     * ~~parse data (serverside)~~
     * finish design
+
 
 ###design:
 * ~~Carousel crop~~

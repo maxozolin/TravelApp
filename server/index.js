@@ -56,7 +56,6 @@ app.post('/api/app', function (req, resp) {
     let weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${city}`
     let pixabayUrl = `https://pixabay.com/api/?key=${PIXABAY_KEY}&per_page=3&q=${city}`
 
-    let promises = {}
 
 
 
@@ -111,77 +110,86 @@ app.post('/api/app', function (req, resp) {
     }
 
 
-    promises["geoname_weatherbit"] = new Promise((resolve, reject) => {
+    apiPromise = new Promise((resolve, reject) => {
 
+        let promises = {}
         request(geonameUrl, { json: true }, (err, res, body) => {
 
-            if (err) { console.log(err);   reject("error");}
+            if (err) { console.log(err); reject("error"); }
 
             allApiData["geoname"] = res.body;
             try {
                 weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${allApiData.geoname.geonames[0].name}`
+                pixabayUrl = `https://pixabay.com/api/?key=${PIXABAY_KEY}&per_page=3&q=${allApiData.geoname.geonames[0].name}+${allApiData.geoname.geonames[0].countryName}`
 
             } catch (e) {
                 weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${city}`
 
             }
+            promises.weatherbit = new Promise((resolveTwo, rejectTwo) => {
+                request(weatherbitUrl, { json: true }, (err, res, body) => {
 
-            request(weatherbitUrl, { json: true }, (err, res, body) => {
+                    if (err) { reject("error"); return console.log(err); }
 
-                if (err) { reject("error"); return console.log(err); }
+                    allApiData["weatherbit"] = res.body;
 
-                allApiData["weatherbit"] = res.body;
+                    resolveTwo()
 
-                resolve()
+                    try {
+                        // console.log(allApiData)
+                    } catch (e) {
 
+                        console.log(e)
+
+                        reject("error")
+                    }
+                })
                 try {
                     // console.log(allApiData)
                 } catch (e) {
-
                     console.log(e)
-
                     reject("error")
                 }
             })
-            try {
-                // console.log(allApiData)
-            } catch (e) {
-                console.log(e)
-                reject("error")
-            }
-        })
-    })
-
-    promises["pixabay"] = new Promise((resolve, reject) => {
-        request(pixabayUrl, { json: true }, (err, res, body) => {
-            if (err) { reject("error"); return console.log(err); }
-            allApiData["pixabay"] = res.body
-            let promises = []
-            let i =0
-            res.body.hits.map((hit)=>{
-                console.log(hit);
-                let promise= new Promise((r,f)=>{
-
-                
-                download(hit.largeImageURL, `./ServerImages/${hit.id}.jpg`, r);
-                i++
+            promises.pixabay = new Promise((resolveThree, rejectThree) => {
+                request(pixabayUrl, { json: true }, (err, res, body) => {
+                    if (err) { reject("error"); return console.log(err); }
+                    allApiData["pixabay"] = res.body
+                    let promises = []
+                    let i =0
+                    res.body.hits.map((hit)=>{
+                        console.log(hit);
+                        let promise= new Promise((r,f)=>{
+        
+                        
+                        download(hit.largeImageURL, `./ServerImages/${hit.id}.jpg`, r);
+                        i++
+                        })
+                        promises.push(promise)
+                    })
+        
+                    Promise.all(promises).then(()=>{resolveThree()})
+                   
+                    try {
+        
+                        // console.log(allApiData)
+                    } catch (e) {
+                        console.log(e)
+                        reject("error")
+                    }
                 })
-                promises.push(promise)
             })
 
-            Promise.all(promises).then(()=>{resolve()})
-           
-            try {
+            Promise.all([promises.weatherbit, promises.pixabay]).then(()=>{
+                resolve()
+            })
 
-                // console.log(allApiData)
-            } catch (e) {
-                console.log(e)
-                reject("error")
-            }
         })
     })
 
-    Promise.all([promises["geoname_weatherbit"], promises["pixabay"]]).then((values) => {
+
+
+    apiPromise.then((values) => {
         parseApiData();
         console.log(resApiData);
         resp.send(resApiData)
