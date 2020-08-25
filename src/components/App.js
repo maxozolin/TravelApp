@@ -25,8 +25,8 @@ function App() {
 
 
     useEffect(() =>{
-        const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if(storedTodos) changeData(storedTodos)
+        const appData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+        if(appData) changeData(appData)
       },[])
     
       useEffect(() => {

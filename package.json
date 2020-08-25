@@ -7,6 +7,7 @@
     "webpack-dev-server": "webpack-dev-server",
     "firststart": "npm install && npm run prod && npm run server",
     "test": "jest",
+    "clear": "del /Q .\\ServerImages\\*",
     "start": "npm run prod && npm run server",
     "dev": "webpack-dev-server  --config webpack.dev.js --open ",
     "prod": "webpack --config webpack.prod.js",

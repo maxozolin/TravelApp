@@ -12,14 +12,14 @@ export default function TripItem(props) {
         if (props.trip.error) {
             if (props.trip.error.geoname) {
                 return <div className="headers">
-                    <h2>Location not found</h2>
-                    <h2>{date}</h2>
+                    <h2 className="headLocation">Location not found</h2>
+                    <h2 className="headDate">{date}</h2>
                 </div>
             }
         }
         return <div className="headers">
-            <h2>{props.trip.geoname.name}</h2>
-            <h2>{date}</h2>
+            <h2 className="headLocation">{props.trip.geoname.name}</h2>
+            <h2 className="headDate">{date}</h2>
         </div>
     }
 
@@ -86,8 +86,16 @@ export default function TripItem(props) {
 
         <div className="trip">
             {headers()}
+            <div className="left-wrapper">
+                {carouselMain()}
+                <div className="btns-timer-wrapper">
+                    <div className="buttons">
+                        <button type="button" className="btn btn-dark col-12" >+ Add trip</button>
+                        <button type="button" className="btn btn-light border border-dark col-12">+ Random</button>
+                    </div>
+                </div>
+            </div>
 
-            {carouselMain()}
         </div>
     )
 }
