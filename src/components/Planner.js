@@ -4,6 +4,13 @@ import TripList from './TripList'
 
 export default function Planner(props) {
     console.log(props)
+    function handleKeyDown(e){
+        e.preventDefault()
+        console.log(e.key)
+        if(e.key.toLowerCase()=="enter"){
+            props.btn.AddTripClick()
+        }
+    }
     return (
         <>
             <Separator url='/TempImages/pexels-alfonso-escalante-2533092.jpg' text="LET'S GET STARTED" />
@@ -25,7 +32,7 @@ export default function Planner(props) {
                         <label htmlFor="destination">Destination:</label><br />
                         <input type="text" id="destination" name="destination" defaultValue="Paris" className="form-control" ref={props.refs.cityNameRef} />
                         <label htmlFor="date">Date:</label><br />
-                        <input type="date" id="date" name="date" defaultValue="Doe" className="form-control" ref={props.refs.dateRef} />
+                        <input type="date" id="date" name="date" defaultValue="Doe" className="form-control"   ref={props.refs.dateRef} />
                     </div>
                     <div className="col-12 col-lg-3 buttons container">
                         <button type="button" className="btn btn-dark col-4 col-lg-12" onClick={props.btn.AddTripClick}>Add trip</button>

@@ -81,6 +81,23 @@ export default function TripItem(props) {
         return arr;
     }
 
+    function weather() {
+        let ret;
+        if (props.trip.error) {
+            if (props.trip.error.weatherbit) {
+                ret = <div>No weather found</div>
+                return <div className="weather">{ret}</div>
+            }
+        }
+        ret = <>
+            <div>{props.trip.weatherbit.weather.description}</div>
+            <img src={`https://www.weatherbit.io/static/img/icons/${props.trip.weatherbit.weather.icon}.png`} />
+        </>
+
+        return <div className="weather">{ret}</div>
+
+    }
+
     return (
 
 
@@ -90,10 +107,16 @@ export default function TripItem(props) {
                 {carouselMain()}
                 <div className="btns-timer-wrapper">
                     <div className="buttons">
-                        <button type="button" className="btn btn-dark col-12" >+ Add trip</button>
-                        <button type="button" className="btn btn-light border border-dark col-12">+ Random</button>
+                        <button type="button" className="btn btn-dark col-12" >+ Add Notes</button>
+                        <button type="button" className="btn btn-light border border-dark col-12">+ Add flight number</button>
+                        <button type="button" className="btn btn-light border border-dark col-12">+ To pack</button>
+
                     </div>
                 </div>
+            </div>
+            <div className="info">
+                <h4 className="bg-dark">weather:</h4>
+                {weather()}
             </div>
 
         </div>
