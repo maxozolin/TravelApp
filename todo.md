@@ -43,4 +43,4 @@
 
 * ~~check if image is already downloaded~~
 * ~~basic logging~~
-* check for LFI
+* ~~check for LFI~~

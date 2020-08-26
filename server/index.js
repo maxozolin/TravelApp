@@ -22,7 +22,11 @@ const cors = require('cors');
 app.use(cors());
 
 /* Initialize the main project folder*/
-app.use(express.static(path.join(__dirname, '..')));
+const root = path.normalize(`${__dirname}/..`)
+app.use(express.static(path.join(root, 'dist')));
+app.use('/ServerImages', express.static(path.join(root, 'ServerImages')));
+app.use('/TempImages', express.static(path.join(root, 'TempImages')));
+
 
 const port = 5000;
 
