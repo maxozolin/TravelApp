@@ -37,6 +37,7 @@
     *  ~~Make Trip.js & _trip.scss~~
     * Make Modal for Packing, Modal for Hotel Adress
     * Finish design
+    * Smooth animate in
 
 ### server
 

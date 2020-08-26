@@ -7,7 +7,7 @@ export default function Planner(props) {
     return (
         <>
             <Separator url='/TempImages/pexels-alfonso-escalante-2533092.jpg' text="LET'S GET STARTED" />
-            <div id="planner" className="col-12 col-md-7 container" >
+            <div id="planner" className="col-12 col-lg-9 container" >
                 {/* Heading */}
                 <h1 className="firstheader">Travel Planner</h1>
                 <div className="plannercontainer" >
