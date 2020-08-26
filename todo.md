@@ -40,5 +40,6 @@
 
 ### server
 
-* check if image is already downloaded
+* ~~check if image is already downloaded~~
+* ~~basic logging~~
 * check for LFI

@@ -32,26 +32,27 @@ dotenv.config();
 const server = app.listen(port);
 
 //Logging start time
-console.log(`sever started at ${Math.floor(new Date() / 1000)} port ${port}`);
+console.log(`sever started at ${Math.floor(new Date() / 1000)} port ${port}\n`);
 
 const GEONAME_USER = process.env.GEONAME_USER;
 const WEATHERBIT_KEY = process.env.WEATHERBIT_KEY;
 const PIXABAY_KEY = process.env.PIXABAY_KEY;
 
-console.log(GEONAME_USER, WEATHERBIT_KEY, PIXABAY_KEY)
 
 app.post('/api/app', function (req, resp) {
+    
     let allApiData = {}
     let resApiData = {}
-
+    
     //Get userdata
     let udata = req.body
     //Get the city from userdata
     let city = udata["city"]
     let date = udata["date"]
     //Logging with UTC timestamp time
-    console.log(`requested ${city}, ${date}`)
-
+    
+    console.log(`New Trip Request: ${city}, ${date}`)
+    
     let geonameUrl = `http://api.geonames.org/searchJSON?username=${GEONAME_USER}&maxRows=1&q=${city}`
     let weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${city}`
     let pixabayUrl = `https://pixabay.com/api/?key=${PIXABAY_KEY}&per_page=3&q=${city}`
@@ -60,12 +61,19 @@ app.post('/api/app', function (req, resp) {
 
 
     var download = function (uri, filename, callback) {
-        request.head(uri, function (err, res, body) {
-            console.log('content-type:', res.headers['content-type']);
-            console.log('content-length:', res.headers['content-length']);
+        if (fs.existsSync(filename)){
+            console.log("   Image already on server")
+            callback()
+        }else{
+            request.head(uri, function (err, res, body) {
+                // console.log('content-type:', res.headers['content-type']);
+                // console.log('content-length:', res.headers['content-length']);
+                console.log("   Downloading a new image")
+    
+                request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+            });
+        }
 
-            request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-        });
     };
 
 
@@ -118,6 +126,7 @@ app.post('/api/app', function (req, resp) {
             if (err) { console.log(err); reject("error"); }
 
             allApiData["geoname"] = res.body;
+            console.log(" Geoname returned")
             try {
                 weatherbitUrl = `https://api.weatherbit.io/v2.0/current?key=${WEATHERBIT_KEY}&city=${allApiData.geoname.geonames[0].name}`
                 pixabayUrl = `https://pixabay.com/api/?key=${PIXABAY_KEY}&per_page=3&q=${allApiData.geoname.geonames[0].name}+${allApiData.geoname.geonames[0].countryName}`
@@ -132,6 +141,8 @@ app.post('/api/app', function (req, resp) {
                     if (err) { reject("error"); return console.log(err); }
 
                     allApiData["weatherbit"] = res.body;
+                    console.log("  Weatherbit returned")
+
 
                     resolveTwo()
 
@@ -155,10 +166,12 @@ app.post('/api/app', function (req, resp) {
                 request(pixabayUrl, { json: true }, (err, res, body) => {
                     if (err) { reject("error"); return console.log(err); }
                     allApiData["pixabay"] = res.body
+                    console.log("  Pixabay returned")
+
                     let promises = []
                     let i =0
                     res.body.hits.map((hit)=>{
-                        console.log(hit);
+                        // console.log(hit);
                         let promise= new Promise((r,f)=>{
         
                         
@@ -181,6 +194,7 @@ app.post('/api/app', function (req, resp) {
             })
 
             Promise.all([promises.weatherbit, promises.pixabay]).then(()=>{
+                console.log("\n All apis returned\n")
                 resolve()
             })
 
@@ -191,7 +205,9 @@ app.post('/api/app', function (req, resp) {
 
     apiPromise.then((values) => {
         parseApiData();
-        console.log(resApiData);
+        console.log(" Data parsed")
+        // console.log(resApiData);
+        console.log(" Sending back data\n\n")
         resp.send(resApiData)
     });
 
