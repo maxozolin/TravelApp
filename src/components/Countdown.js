@@ -26,9 +26,20 @@ export default function Countdown(props) {
 
     },[])
 
+    function chooseWording(){
+        if(time.time>0){
+            return `${time.time} days to go`
+        }
+        if(time.time == 0){
+            return `today!`
+        }
+            return `${-time.time} days ago`
+
+    }
+
     return (
-        <h2>
-            {time.time} days
-        </h2>
+        <>
+        {chooseWording()}
+        </>
     )
 }

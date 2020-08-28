@@ -3,6 +3,10 @@ import Separator from './Separator'
 import TripList from './TripList'
 
 export default function Planner(props) {
+    function noReload(e){
+        e.preventDefault()
+        props.btn.AddTripClick()
+    }
     console.log(props)
     function handleKeyDown(e){
         e.preventDefault()
@@ -18,7 +22,7 @@ export default function Planner(props) {
                 {/* Heading */}
                 <h1 className="firstheader">Travel Planner</h1>
                 <div className="plannercontainer" >
-                    <TripList trips={props.trips} />
+                    <TripList trips={props.trips} btn={{"changeModalData":props.btn.changeModalData}}/>
 
                     <div className="spinner-border" role="status" style={{ display: props.loading ? "block" : "none" }}>
                         <span className="sr-only">Loading...</span>
@@ -27,8 +31,8 @@ export default function Planner(props) {
 
 
                 {/* FORM */}
-                <form className="row">
-                    <div className="form-group col-12 col-lg-9">
+                <form className="row" onSubmit={noReload}>
+                    <div className="form-group col-12 col-lg-9" >
                         <label htmlFor="destination">Destination:</label><br />
                         <input type="text" id="destination" name="destination" defaultValue="Paris" className="form-control" ref={props.refs.cityNameRef} />
                         <label htmlFor="date">Date:</label><br />

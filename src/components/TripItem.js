@@ -9,18 +9,27 @@ export default function TripItem(props) {
     console.log(props)
 
 
+    function changeModal(){
+        props.btn.changeModalData((prev)=>{
+            let ret ={'id': props.trip.id}
+            return ret
+        })
+    }
     function headers() {
         if (props.trip.error) {
             if (props.trip.error.geoname) {
                 return <div className="headers">
                     <h2 className="headLocation">Location not found</h2>
-                    <h2 className="headDate">{date}</h2>
+                    <h2 className="headDate">{date} <Countdown date={props.trip.date}/> </h2>
+
                 </div>
             }
         }
         return <div className="headers">
             <h2 className="headLocation">{props.trip.geoname.name}</h2>
-            <h2 className="headDate">{date}</h2>
+                        
+            <h2 className="headDate">{date} <Countdown date={props.trip.date}/> </h2>
+            
         </div>
     }
 
@@ -108,10 +117,9 @@ export default function TripItem(props) {
                 {carouselMain()}
                 <div className="btns-timer-wrapper">
                     <div className="buttons">
-                        <button type="button" className="btn btn-dark col-12" >+ Add Notes</button>
+                        <button type="button" className="btn btn-dark col-12" data-toggle="modal"  data-target="#exampleModal" onClick={changeModal}>+ Add Notes</button>
                         <button type="button" className="btn btn-light border border-dark col-12">+ Add flight number</button>
                         <button type="button" className="btn btn-light border border-dark col-12">+ To pack</button>
-                        <Countdown date={props.trip.date}/>
                     </div>
                 </div>
             </div>

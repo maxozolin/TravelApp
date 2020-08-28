@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import Modal from './Modal'
 import Navbar from './Navbar'
 import Home from './Home';
@@ -13,44 +13,48 @@ const LOCAL_STORAGE_KEY = 'websiteApp.appData'
 function App() {
 
     const [appData, changeData] = useState({
-        "planner":{
-            "loading":false,
-            "trips":[]
+        "planner": {
+            "loading": false,
+            "trips": []
         }
     })
-    
+
+    const [modalData, changeModalData] = useState({
+        "id":undefined
+    })
+
     const cityNameRef = useRef();
     const dateRef = useRef();
     const randomRef = useRef();
 
 
-    useEffect(() =>{
+    useEffect(() => {
         const appData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if(appData) changeData(appData)
-      },[])
-    
-      useEffect(() => {
+        if (appData) changeData(appData)
+    }, [])
+
+    useEffect(() => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(appData));
-      },[appData])
-    
-    
-    
+    }, [appData])
+
+
+
     let callApi = async () => {
         let city = cityNameRef.current.value;
         let date = dateRef.current.value;
         // console.log(date)
-        if (city == ""){
+        if (city == "") {
             alert("city blank")
             return
         }
-        if (date == ""){
+        if (date == "") {
             alert("date blank")
             return
         }
 
         TogglePlannerLoading()
 
-        
+
         const settings = {
             method: 'post',
             headers: {
@@ -63,50 +67,50 @@ function App() {
             //Post coords to server
             const res = await fetch(`/api/app`, settings);
             // console.log(res)
-            if(res.status.toString()[0]==5){
+            if (res.status.toString()[0] == 5) {
                 console.log("NOT RESPONDING")
                 alert(res.statusText)
             }
             TogglePlannerLoading()
 
 
-            
+
             try {
                 //get back data
                 let dat = await res.json();
                 console.log(dat)
 
-                changeData((prev)=>{
+                changeData((prev) => {
                     let newData = Object.assign({}, prev)
-                    dat = Object.assign({},dat, {"id":uuidv4()})
+                    dat = Object.assign({}, dat, { "id": uuidv4() })
                     newData.planner.trips.push(dat)
-                    newData.planner.trips.sort((a,b)=>{
+                    newData.planner.trips.sort((a, b) => {
                         let d1 = new Date(a.date)
                         let d2 = new Date(b.date)
-                        return d1-d2
+                        return d1 - d2
                     })
                     return newData
                 })
                 // changeData(() => {
-                    //     return dat;
-                    // });
-                    // console.log(appData);
-                } catch (error) {
-                    //if there is an error in the connection log it with the data recieved
-                    console.log("error", error);
-                }
-            } catch (e) {
-                return e;
+                //     return dat;
+                // });
+                // console.log(appData);
+            } catch (error) {
+                //if there is an error in the connection log it with the data recieved
+                console.log("error", error);
+            }
+        } catch (e) {
+            return e;
         }
 
-            
-        
-        
-        
+
+
+
+
     }
-    
-    function TogglePlannerLoading(){
-        changeData((prev)=>{
+
+    function TogglePlannerLoading() {
+        changeData((prev) => {
             let toggled = Object.assign({}, prev)
             toggled.planner.loading = !toggled.planner.loading;
             // console.log("toggled:  ",toggled)
@@ -117,29 +121,23 @@ function App() {
         callApi()
     }
 
-    function RandomClick(){
+    function RandomClick() {
         console.log(appData)
         console.log(uuidv4())
 
 
     }
-    
-    
-    
+
+
+
     return (
         <div className="app">
             <Navbar />
-            {/* <div className="content container">
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Launch demo modal
-            </button>
-                <Modal />
-            </div> */}
-            <Home/>
-            <About/>
-            
-            <Planner btn={{AddTripClick, RandomClick}} refs={{cityNameRef, dateRef}} loading={appData.planner.loading} trips = {appData.planner.trips}/>
-            <Footer/>
+            <Home />
+            <About />
+            <Modal  callerId={modalData.id} />
+            <Planner btn={{ AddTripClick, RandomClick, changeModalData }} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} />
+            <Footer />
         </div>
     );
 }
