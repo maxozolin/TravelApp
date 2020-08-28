@@ -8,12 +8,12 @@
 <br>
 
 * visualize data
-    * Add weather to trip from api
     * Add notification service worker for trip
     * Button "+ Add notes" to trip
     * Button "+ To pack" to trip
     * Button "+ Add flight number" to trip
-    * Add countdown to trip
+    * ~~Add countdown to trip~~
+    * ~~Add weather to trip from api~~
     * ~~**handle errors**~~
     * ~~choose datastructure~~
     * ~~parse data (serverside)~~

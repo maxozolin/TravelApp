@@ -1,5 +1,6 @@
 import React from 'react'
 import { uuid } from 'uuidv4'
+import Countdown from './Countdown'
 
 import { v4 as uuidv4 } from 'uuid'
 export default function TripItem(props) {
@@ -110,12 +111,12 @@ export default function TripItem(props) {
                         <button type="button" className="btn btn-dark col-12" >+ Add Notes</button>
                         <button type="button" className="btn btn-light border border-dark col-12">+ Add flight number</button>
                         <button type="button" className="btn btn-light border border-dark col-12">+ To pack</button>
-
+                        <Countdown date={props.trip.date}/>
                     </div>
                 </div>
             </div>
             <div className="info">
-                <h4 className="bg-dark">weather:</h4>
+                <h4 className="bg-dark ">weather:</h4>
                 {weather()}
             </div>
 

@@ -129,7 +129,7 @@ function App() {
     return (
         <div className="app">
             <Navbar />
-            {/* <div onKeyDown={exitOverlay} className="content container">
+            {/* <div className="content container">
                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Launch demo modal
             </button>
