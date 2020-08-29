@@ -9,6 +9,7 @@ export default function Planner(props) {
         props.btn.AddTripClick()
     }
     console.log(props)
+    
     function handleKeyDown(e){
         e.preventDefault()
         console.log(e.key)

@@ -4,7 +4,8 @@ export const ModalContext = createContext()
 
 export function ModalProvider(props) {
     const [modalDataContext, changeModalDataContext] = useState({
-        "id":undefined
+        "id":undefined,
+        "callerButton":undefined
     });
 
     return (

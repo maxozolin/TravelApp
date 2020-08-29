@@ -135,7 +135,7 @@ function App() {
             <Navbar />
             <Home />
             <About />
-            <Modal/>
+            <Modal data={{"trips":appData.planner.trips, "changeData":changeData}}/>
             <Planner btn={{ AddTripClick, RandomClick}} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} />
             <Footer />
             </ModalProvider>
