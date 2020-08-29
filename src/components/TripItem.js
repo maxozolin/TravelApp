@@ -1,20 +1,16 @@
-import React from 'react'
+import React   from 'react'
 import { uuid } from 'uuidv4'
 import Countdown from './Countdown'
 
 import { v4 as uuidv4 } from 'uuid'
+import Buttons from './Buttons'
 export default function TripItem(props) {
 
     let date = new Date(props.trip.date).toDateString()
     console.log(props)
 
 
-    function changeModal(){
-        props.btn.changeModalData((prev)=>{
-            let ret ={'id': props.trip.id}
-            return ret
-        })
-    }
+
     function headers() {
         if (props.trip.error) {
             if (props.trip.error.geoname) {
@@ -115,13 +111,7 @@ export default function TripItem(props) {
             {headers()}
             <div className="left-wrapper">
                 {carouselMain()}
-                <div className="btns-timer-wrapper">
-                    <div className="buttons">
-                        <button type="button" className="btn btn-dark col-12" data-toggle="modal"  data-target="#exampleModal" onClick={changeModal}>+ Add Notes</button>
-                        <button type="button" className="btn btn-light border border-dark col-12">+ Add flight number</button>
-                        <button type="button" className="btn btn-light border border-dark col-12">+ To pack</button>
-                    </div>
-                </div>
+                <Buttons id={props.trip.id}/>
             </div>
             <div className="info">
                 <h4 className="bg-dark ">weather:</h4>

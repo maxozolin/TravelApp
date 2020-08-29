@@ -1,10 +1,13 @@
 
-import React from 'react';
+import React, {useContext} from 'react'
+import {ModalContext} from './ModalContext'
+
 
 function Modal(props) {
+    const [modalDataContext, changeModalDataContext] = useContext(ModalContext) 
     function callerId(){
-        if(props.callerId){
-            return props.callerId
+        if(modalDataContext.id){
+            return modalDataContext.id
         }
         return "noID"
 

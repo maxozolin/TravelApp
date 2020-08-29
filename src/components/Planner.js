@@ -2,6 +2,7 @@ import React from 'react'
 import Separator from './Separator'
 import TripList from './TripList'
 
+
 export default function Planner(props) {
     function noReload(e){
         e.preventDefault()
@@ -22,7 +23,7 @@ export default function Planner(props) {
                 {/* Heading */}
                 <h1 className="firstheader">Travel Planner</h1>
                 <div className="plannercontainer" >
-                    <TripList trips={props.trips} btn={{"changeModalData":props.btn.changeModalData}}/>
+                    <TripList trips={props.trips}/>
 
                     <div className="spinner-border" role="status" style={{ display: props.loading ? "block" : "none" }}>
                         <span className="sr-only">Loading...</span>

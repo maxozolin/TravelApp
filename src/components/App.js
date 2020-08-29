@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid'
 import Modal from './Modal'
 import Navbar from './Navbar'
@@ -6,6 +6,7 @@ import Home from './Home';
 import About from './About';
 import Planner from './Planner'
 import Footer from './Footer'
+import {ModalContext, ModalProvider} from './ModalContext'
 import { uuid } from 'uuidv4';
 
 const LOCAL_STORAGE_KEY = 'websiteApp.appData'
@@ -19,9 +20,7 @@ function App() {
         }
     })
 
-    const [modalData, changeModalData] = useState({
-        "id":undefined
-    })
+
 
     const cityNameRef = useRef();
     const dateRef = useRef();
@@ -132,12 +131,14 @@ function App() {
 
     return (
         <div className="app">
+            <ModalProvider>
             <Navbar />
             <Home />
             <About />
-            <Modal  callerId={modalData.id} />
-            <Planner btn={{ AddTripClick, RandomClick, changeModalData }} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} />
+            <Modal/>
+            <Planner btn={{ AddTripClick, RandomClick}} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} />
             <Footer />
+            </ModalProvider>
         </div>
     );
 }
