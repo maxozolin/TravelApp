@@ -1,4 +1,4 @@
-import React   from 'react'
+import React from 'react'
 import { uuid } from 'uuidv4'
 import Countdown from './Countdown'
 
@@ -16,16 +16,16 @@ export default function TripItem(props) {
             if (props.trip.error.geoname) {
                 return <div className="headers">
                     <h2 className="headLocation">Location not found</h2>
-                    <h2 className="headDate">{date} <Countdown date={props.trip.date}/> </h2>
+                    <h2 className="headDate">{date} <Countdown date={props.trip.date} /> </h2>
 
                 </div>
             }
         }
         return <div className="headers">
             <h2 className="headLocation">{props.trip.geoname.name}</h2>
-                        
-            <h2 className="headDate">{date} <Countdown date={props.trip.date}/> </h2>
-            
+
+            <h2 className="headDate">{date} <Countdown date={props.trip.date} /> </h2>
+
         </div>
     }
 
@@ -104,6 +104,26 @@ export default function TripItem(props) {
 
     }
 
+    function flight() {
+        if (props.trip.pack.length > 0) {
+            let items = props.trip.pack.map((item) => {
+                return <li>{item}</li>
+            })
+            return <ul>{items}</ul>
+
+        }
+    }
+
+    function notes(){
+        if (props.trip.notes.length > 0) {
+            let notes = props.trip.notes.map((note) => {
+            return <div className="notes"><h5>{note.title}</h5> <p>{note.body}</p></div>
+            })
+            return <><h4 className="bg-dark">notes:</h4>{notes}</>
+
+        }
+    }
+
     return (
 
 
@@ -111,11 +131,13 @@ export default function TripItem(props) {
             {headers()}
             <div className="left-wrapper">
                 {carouselMain()}
-                <Buttons id={props.trip.id}/>
+                <Buttons id={props.trip.id} />
             </div>
             <div className="info">
                 <h4 className="bg-dark ">weather:</h4>
                 {weather()}
+                {flight()}
+                {notes()}
             </div>
 
         </div>

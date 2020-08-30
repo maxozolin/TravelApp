@@ -1,10 +1,15 @@
 
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { ModalContext } from './ModalContext'
 
 
 function Modal(props) {
     const [modalDataContext, changeModalDataContext] = useContext(ModalContext)
+
+        let noteTitle =  useRef()
+        let noteBody =  useRef()
+        let flight =  useRef()
+        let pack =  useRef()
 
 
 
@@ -20,13 +25,13 @@ function Modal(props) {
                     </div>
                     <div className="modal-body">
                         <label htmlFor="note-title">Title:</label><br />
-                        <input type="text" name="note-title" defaultValue="Note" className="form-control" autocomplete="off"/>
+                        <input type="text" name="note-title" defaultValue="Note" className="form-control" autoComplete="off" ref={noteTitle} />
                         <label htmlFor="note-body">Note:</label><br />
-                        <input type="text" name="note-body" defaultValue="Visit the cool statue" className="form-control"autocomplete="off" />
+                        <input type="text" name="note-body" defaultValue="Visit the cool statue" className="form-control" autoComplete="off" ref={noteBody} />
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-primary" onClick={saveModal}>Save changes</button>
                     </div>
                 </div>
             </div>
@@ -44,11 +49,11 @@ function Modal(props) {
                     </div>
                     <div className="modal-body">
                         <label htmlFor="flight">Note:</label><br />
-                        <input type="text" name="date" defaultValue="Visit the cool statue" className="form-control" autocomplete="off" />
+                        <input type="text" name="date" defaultValue="Visit the cool statue" className="form-control" autoComplete="off" ref={flight}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-primary" onClick={saveModal} data-dismiss="modal">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -65,17 +70,67 @@ function Modal(props) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        ...
+                        <input type="text" name="date" defaultValue="2xToothbrush, Pillow, T-Shirt" className="form-control" autoComplete="off"  ref={pack}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
+                        <button type="button" className="btn btn-primary" onClick={saveModal}>Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
 
 
+
+    function saveModal() {
+        let id = callerId()
+        switch (modalDataContext.callerButton) {
+            case 'notes':
+                props.data.changeData((prev) => {
+                    let ret = Object.assign({}, prev)
+                    let trip = ret.planner.trips.find((item) => {
+                        if (item.id == id) {
+                            return item
+                        }
+                    })
+                    console.log(noteTitle.current.value)
+                    trip.notes.push({
+                        "title": noteTitle.current.value,
+                        "body": noteBody.current.value
+                    })
+                    return ret
+                })
+                break;
+            case 'flight':
+                props.data.changeData((prev) => {
+                    let ret = Object.assign({}, prev)
+                    let trip = ret.planner.trips.find((item) => {
+                        if (item.id == id) {
+                            return item
+                        }
+                    })
+                    console.log(flight.current.value)
+                    trip.flight=flight.current.value
+                    return ret
+                })
+                break;
+            case 'pack':
+                props.data.changeData((prev) => {
+                    let ret = Object.assign({}, prev)
+                    let trip = ret.planner.trips.find((item) => {
+                        if (item.id == id) {
+                            return item
+                        }
+                    })
+                    console.log(pack.current.value)
+                    trip.pack.push(pack.current.value)
+                    return ret
+                })
+                break;
+            default:
+                break;
+        }
+    }
 
     function callerId() {
         if (modalDataContext.id) {

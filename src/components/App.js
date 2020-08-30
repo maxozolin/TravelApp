@@ -81,7 +81,7 @@ function App() {
 
                 changeData((prev) => {
                     let newData = Object.assign({}, prev)
-                    dat = Object.assign({}, dat, { "id": uuidv4() })
+                    dat = Object.assign({}, dat, { "id": uuidv4(), "notes":[], "flight":"", "pack":[]})
                     newData.planner.trips.push(dat)
                     newData.planner.trips.sort((a, b) => {
                         let d1 = new Date(a.date)
