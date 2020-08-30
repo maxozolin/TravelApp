@@ -4,19 +4,20 @@
 * ~~get apikeys~~
 * ~~set up route~~
 * ~~get data~~
-
-<br>
-
-* visualize data
-    * Add notification service worker for trip
-    * Button "+ Add notes" to trip
-    * Button "+ To pack" to trip
-    * Button "+ Add flight number" to trip
+* ~~visualize data~~
+    * ~~Button "+ Add notes" to trip~~
+    * ~~Button "+ To pack" to trip~~
+    * ~~Button "+ Add flight number" to trip~~
     * ~~Add countdown to trip~~
     * ~~Add weather to trip from api~~
     * ~~**handle errors**~~
     * ~~choose datastructure~~
     * ~~parse data (serverside)~~
+
+<br>
+
+* Add notification service worker for trip
+* Remove trip
 
 
 
@@ -31,15 +32,16 @@
 <br>
 
 * Choose fonts
+* Redusce image size
 * Logo
 * Planner design
-    * ~~Set up State~~
-    *  ~~Make Trip.js & _trip.scss~~
-    * Make Modal for Packing, Modal for Hotel Adress
     * Finish design
     * Smooth animate in
+    * ~~Set up State~~
+    *  ~~Make Trip.js & _trip.scss~~
+    * ~~Make Modal for Packing, Modal for Hotel Adress~~
 
-### server
+### ~~server~~
 
 * ~~check if image is already downloaded~~
 * ~~basic logging~~
