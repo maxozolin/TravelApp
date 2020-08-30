@@ -4,6 +4,8 @@ import Countdown from './Countdown'
 
 import { v4 as uuidv4 } from 'uuid'
 import Buttons from './Buttons'
+import Remove from './Remove'
+
 export default function TripItem(props) {
 
     let date = new Date(props.trip.date).toDateString()
@@ -100,16 +102,16 @@ export default function TripItem(props) {
             <img src={`https://www.weatherbit.io/static/img/icons/${props.trip.weatherbit.weather.icon}.png`} />
         </>
 
-        return <div className="weather">{ret}</div>
+        return <div className="weather content">{ret}</div>
 
     }
 
-    function flight() {
+    function pack() {
         if (props.trip.pack.length > 0) {
             let items = props.trip.pack.map((item) => {
-                return <li>{item}</li>
+                return <li key={item.id} onClick={()=>{removeFuntions.pack(item.id)}}>{item.item}</li>
             })
-            return <ul>{items}</ul>
+            return <><h4 className="bg-dark">to pack:</h4><div className="pack content"><ul>{items}</ul></div></>
 
         }
     }
@@ -117,12 +119,54 @@ export default function TripItem(props) {
     function notes(){
         if (props.trip.notes.length > 0) {
             let notes = props.trip.notes.map((note) => {
-            return <div className="notes"><h5>{note.title}</h5> <p>{note.body}</p></div>
+            return <div className="note" key={note.id} onClick={()=>{removeFuntions.notes(note.id)}}><h5>{note.title}</h5> <p>{note.body}</p></div>
             })
-            return <><h4 className="bg-dark">notes:</h4>{notes}</>
+            return <><h4 className="bg-dark">notes:</h4><div className="notes content">{notes}</div></>
 
         }
     }
+
+    
+    function flight(){
+        if (props.trip.flight) {
+            let flight = <p>{props.trip.flight}</p>
+            return <><h4 className="bg-dark" >flight:</h4><div className="flight content">{flight}</div></>
+
+        }
+    }
+
+    let removeFuntions = {
+        "notes": (id)=>{
+            props.state.changeData((prev) => {
+                let ret = Object.assign({}, prev)
+
+                const trips = ret.planner.trips
+                let trip = trips[trips.findIndex(el => el.id === props.trip.id)]
+
+                trip.notes = trip.notes.filter((note)=>{
+                    return note.id !== id
+                })
+
+                return ret
+            })
+        },
+        "pack": (id)=>{
+            props.state.changeData((prev) => {
+                let ret = Object.assign({}, prev)
+
+                const trips = ret.planner.trips
+                let trip = trips[trips.findIndex(el => el.id === props.trip.id)]
+
+                trip.pack = trip.pack.filter((item)=>{
+                    return item.id !== id
+                })
+
+                return ret
+            })
+            
+        }
+    }
+
 
     return (
 
@@ -138,6 +182,8 @@ export default function TripItem(props) {
                 {weather()}
                 {flight()}
                 {notes()}
+                {pack()}
+                {console.log(props.state)}
             </div>
 
         </div>

@@ -6,7 +6,7 @@ import Home from './Home';
 import About from './About';
 import Planner from './Planner'
 import Footer from './Footer'
-import {ModalContext, ModalProvider} from './ModalContext'
+import {ModalContext, ModalProvider} from '../contexts/ModalContext'
 import { uuid } from 'uuidv4';
 
 const LOCAL_STORAGE_KEY = 'websiteApp.appData'
@@ -136,7 +136,7 @@ function App() {
             <Home />
             <About />
             <Modal data={{"trips":appData.planner.trips, "changeData":changeData}}/>
-            <Planner btn={{ AddTripClick, RandomClick}} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} />
+            <Planner btn={{ AddTripClick, RandomClick}} refs={{ cityNameRef, dateRef }} loading={appData.planner.loading} trips={appData.planner.trips} state={{appData, changeData}} />
             <Footer />
             </ModalProvider>
         </div>

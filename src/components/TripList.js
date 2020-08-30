@@ -9,7 +9,7 @@ export default function TripList(props) {
             {console.log(props)}
             {
         props.trips.map((trip)=>{
-                return <TripItem key = {trip.id} trip = {trip} />
+                return <TripItem key = {trip.id} trip = {trip} state={{"appData":props.state.appData, "changeData":props.state.changeData}}/>
         })
         }
         </div>

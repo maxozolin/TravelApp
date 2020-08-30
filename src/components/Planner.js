@@ -24,7 +24,7 @@ export default function Planner(props) {
                 {/* Heading */}
                 <h1 className="firstheader">Travel Planner</h1>
                 <div className="plannercontainer" >
-                    <TripList trips={props.trips}/>
+                    <TripList trips={props.trips} state={{"appData":props.state.appData, "changeData":props.state.changeData}}/>
 
                     <div className="spinner-border" role="status" style={{ display: props.loading ? "block" : "none" }}>
                         <span className="sr-only">Loading...</span>

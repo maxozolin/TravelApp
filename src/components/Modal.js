@@ -1,6 +1,8 @@
 
 import React, { useContext, useRef } from 'react'
-import { ModalContext } from './ModalContext'
+import { ModalContext } from '../contexts/ModalContext'
+import { v4 as uuidv4 } from 'uuid'
+
 
 
 function Modal(props) {
@@ -25,7 +27,7 @@ function Modal(props) {
                     </div>
                     <div className="modal-body">
                         <label htmlFor="note-title">Title:</label><br />
-                        <input type="text" name="note-title" defaultValue="Note" className="form-control" autoComplete="off" ref={noteTitle} />
+                        <input type="text" name="note-title" defaultValue="-" className="form-control notetitle" autoComplete="off" ref={noteTitle} />
                         <label htmlFor="note-body">Note:</label><br />
                         <input type="text" name="note-body" defaultValue="Visit the cool statue" className="form-control" autoComplete="off" ref={noteBody} />
                     </div>
@@ -48,8 +50,8 @@ function Modal(props) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <label htmlFor="flight">Note:</label><br />
-                        <input type="text" name="date" defaultValue="Visit the cool statue" className="form-control" autoComplete="off" ref={flight}/>
+                        <label htmlFor="flight">Flight:</label><br />
+                        <input type="text" name="flight" defaultValue="-" className="form-control flight" autoComplete="off" ref={flight}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -70,7 +72,7 @@ function Modal(props) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <input type="text" name="date" defaultValue="2xToothbrush, Pillow, T-Shirt" className="form-control" autoComplete="off"  ref={pack}/>
+                        <input type="text" name="pack" defaultValue="2xToothbrush, Pillow, T-Shirt" className="form-control" autoComplete="off"  ref={pack}/>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -95,6 +97,7 @@ function Modal(props) {
                     })
                     console.log(noteTitle.current.value)
                     trip.notes.push({
+                        "id":uuidv4(),
                         "title": noteTitle.current.value,
                         "body": noteBody.current.value
                     })
@@ -122,8 +125,16 @@ function Modal(props) {
                             return item
                         }
                     })
-                    console.log(pack.current.value)
-                    trip.pack.push(pack.current.value)
+                    let noSpace = pack.current.value.replace(/ /g,"");
+                    let arr = noSpace.split(",");
+                    let idPairing = arr.map((item)=>{
+                        return{
+                            "id":uuidv4(),
+                            "item": item
+                        }
+                    })
+                    console.log(idPairing)
+                    trip.pack = trip.pack.concat(idPairing);
                     return ret
                 })
                 break;
@@ -150,7 +161,7 @@ function Modal(props) {
                 return packModal
                 break;
             default:
-                return packModal;
+                return notesModal;
         }
     }
 

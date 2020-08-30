@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {ModalContext} from './ModalContext'
+import {ModalContext} from '../contexts/ModalContext'
 
 
 export default function Buttons(props) {
@@ -18,6 +18,7 @@ export default function Buttons(props) {
             ret.callerButton=databuttton
             return ret
         })
+        console.log(modalDataContext)
     }
     return (
         <div className="btns-timer-wrapper">
