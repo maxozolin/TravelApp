@@ -4,7 +4,7 @@
 <br>
 
 ## Setup
----
+
 In terminal type:
 
 ```bash
@@ -17,7 +17,7 @@ This will install all NodeJS dependencies, runs production build that creates a 
 <br>
 
 ## Development
----
+
 In terminal type:
 ```bash
 npm run dev
