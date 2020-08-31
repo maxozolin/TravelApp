@@ -9,14 +9,7 @@ export default function Planner(props) {
         props.btn.AddTripClick()
     }
     console.log(props)
-    
-    function handleKeyDown(e){
-        e.preventDefault()
-        console.log(e.key)
-        if(e.key.toLowerCase()=="enter"){
-            props.btn.AddTripClick()
-        }
-    }
+
     return (
         <>
             <Separator url='/Images/pexels-alfonso-escalante-2533092.jpg' text="LET'S GET STARTED" />

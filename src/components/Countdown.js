@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import functions from '../../functions/functions'
 
 export default function Countdown(props) {
     
@@ -9,11 +10,8 @@ export default function Countdown(props) {
     })
 
     function Counter() {
-        let now = now = new Date().getTime();
-        let distance = countDownDate - now 
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
         changeTime(() => {
-            return { "time": days }
+            return { "time": functions.Counter(countDownDate) }
             
         })
     }
@@ -39,6 +37,7 @@ export default function Countdown(props) {
 
     return (
         <>
+        {console.log(functions)}
         {chooseWording()}
         </>
     )
