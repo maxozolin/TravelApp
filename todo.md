@@ -13,11 +13,9 @@
     * ~~**handle errors**~~
     * ~~choose datastructure~~
     * ~~parse data (serverside)~~
+* ~~Remove~~
 
 <br>
-
-* Add notification service worker for trip
-* Remove trip
 
 
 
@@ -31,12 +29,9 @@
     * ~~Adjust~~
 <br>
 
-* Choose fonts
-* Redusce image size
-* Logo
-* Planner design
-    * Finish design
-    * Smooth animate in
+* ~~Logo~~
+* ~~Planner design~~
+    * ~~Finish design~~
     * ~~Set up State~~
     *  ~~Make Trip.js & _trip.scss~~
     * ~~Make Modal for Packing, Modal for Hotel Adress~~
@@ -46,3 +41,10 @@
 * ~~check if image is already downloaded~~
 * ~~basic logging~~
 * ~~check for LFI~~
+
+## other idaeas
+
+* Change fonts
+* Redusce image size
+* ComponentsSmooth animate in
+* Add notification service worker for trip

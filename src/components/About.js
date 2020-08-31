@@ -13,6 +13,7 @@ export default function About() {
                 <li>have your flight information readily avvailable</li>
                 <li>count down to your trip and remind you about it</li>
             </ul>
+            <div>Icons made by <a href="https://icon54.com/" title="Pixel perfect">Pixel perfect</a>,  <a href="http://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
         </div>
         </div>
     )

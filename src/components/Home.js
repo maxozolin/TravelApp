@@ -13,15 +13,15 @@ export default function Home() {
                     <li data-target="#home" data-slide-to="2"></li>
                 </ol>
                 <div className="carousel-item active" data-interval="7000">
-                    <img src={`/TempImages/pexels-mihis-alex-21014.jpg`} className="img-responsive  center-block w-100" alt="..." />
+                    <img src={`/Images/pexels-mihis-alex-21014.jpg`} className="img-responsive  center-block w-100" alt="..." />
                     <h1 className="carousel-caption">PLAN</h1>
                 </div>
                 <div className="carousel-item" data-interval="7000">
-                    <img src="/TempImages/old-1130743_1920.jpg" className="d-block w-100" alt="..." />
+                    <img src="/Images/old-1130743_1920.jpg" className="d-block w-100" alt="..." />
                     <h1 className="carousel-caption">NOTE</h1>
                 </div>
                 <div className="carousel-item" data-interval="7000">
-                    <img src="/TempImages/pexels-ylanite-koppens-697662.jpg" className="d-block w-100" alt="..." />
+                    <img src="/Images/pexels-ylanite-koppens-697662.jpg" className="d-block w-100" alt="..." />
                     <h1 className="carousel-caption">GUIDE</h1>
                 </div>
             </div>

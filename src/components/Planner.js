@@ -19,7 +19,7 @@ export default function Planner(props) {
     }
     return (
         <>
-            <Separator url='/TempImages/pexels-alfonso-escalante-2533092.jpg' text="LET'S GET STARTED" />
+            <Separator url='/Images/pexels-alfonso-escalante-2533092.jpg' text="LET'S GET STARTED" />
             <div id="planner" className="col-12 col-lg-9 container" >
                 {/* Heading */}
                 <h1 className="firstheader">Travel Planner</h1>
@@ -36,9 +36,9 @@ export default function Planner(props) {
                 <form className="row" onSubmit={noReload}>
                     <div className="form-group col-12 col-lg-9" >
                         <label htmlFor="destination">Destination:</label><br />
-                        <input type="text" id="destination" name="destination" defaultValue="Paris" className="form-control" ref={props.refs.cityNameRef} />
+                        <input type="text" id="destination" name="destination" defaultValue="Rome" className="form-control" ref={props.refs.cityNameRef} />
                         <label htmlFor="date">Date:</label><br />
-                        <input type="date" id="date" name="date" defaultValue="Doe" className="form-control"   ref={props.refs.dateRef} />
+                        <input type="date" id="date" name="date" className="form-control"   ref={props.refs.dateRef} />
                     </div>
                     <div className="col-12 col-lg-3 buttons container">
                         <button type="button" className="btn btn-dark col-4 col-lg-12" onClick={props.btn.AddTripClick}>Add trip</button>

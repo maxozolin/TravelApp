@@ -25,7 +25,7 @@ app.use(cors());
 const root = path.normalize(`${__dirname}/..`)
 app.use(express.static(path.join(root, 'dist')));
 app.use('/ServerImages', express.static(path.join(root, 'ServerImages')));
-app.use('/TempImages', express.static(path.join(root, 'TempImages')));
+app.use('/Images', express.static(path.join(root, 'Images')));
 
 
 const port = 5000;
