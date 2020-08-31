@@ -27,6 +27,17 @@ This will start a development server on server on http://localhost:8080
 <br>
 <br>
 
+## Start Server
+
+In terminal type:
+```bash
+npm run server
+```
+This will start the server on http://localhost:5000
+
+<br>
+<br>
+
 ### Clearing Images Downloaded from server:
 ---
 In terminal type:
