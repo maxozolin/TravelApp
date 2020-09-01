@@ -9,7 +9,7 @@ import Footer from './Footer'
 import {ModalContext, ModalProvider} from '../contexts/ModalContext'
 import { uuid } from 'uuidv4';
 
-const LOCAL_STORAGE_KEY = 'websiteApp.appData'
+const LOCAL_STORAGE_KEY = 'websiteAppAppData'
 
 function App() {
 
