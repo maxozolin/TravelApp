@@ -1,5 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const path = require('path');
 module.exports = {
    context: __dirname,
@@ -21,7 +23,7 @@ module.exports = {
          },
          {
             test: /\.scss$/,
-            use: ['style-loader', 'css-loader', 'sass-loader']
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
          },
          {
             test: /\.(png|j?g|svg|gif)?$/,
@@ -53,7 +55,8 @@ module.exports = {
          template: path.resolve(__dirname, 'src/public/index.html'),
          filename: 'index.html'
       }),
-      new WorkboxPlugin.GenerateSW()
+      new WorkboxPlugin.GenerateSW(),
+      new MiniCssExtractPlugin({filename: '[name].css'})
    ],
 
 };
