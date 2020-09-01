@@ -5,7 +5,7 @@ projectData = {};
 /* Express to run server and routes */
 const express = require('express');
 
-const fs = require('fs')
+const fs = require('fs');
 
 const request = require('request');
 
@@ -26,6 +26,8 @@ const root = path.normalize(`${__dirname}/..`)
 app.use(express.static(path.join(root, 'dist')));
 app.use('/ServerImages', express.static(path.join(root, 'ServerImages')));
 app.use('/Images', express.static(path.join(root, 'Images')));
+
+const functions = require('../functions/functions')
 
 
 const port = 5000;
@@ -64,21 +66,6 @@ app.post('/api/app', function (req, resp) {
 
 
 
-    var download = function (uri, filename, callback) {
-        if (fs.existsSync(filename)){
-            console.log("   Image already on server")
-            callback()
-        }else{
-            request.head(uri, function (err, res, body) {
-                // console.log('content-type:', res.headers['content-type']);
-                // console.log('content-length:', res.headers['content-length']);
-                console.log("   Downloading a new image")
-    
-                request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-            });
-        }
-
-    };
 
 
     function parseApiData() {
@@ -170,6 +157,7 @@ app.post('/api/app', function (req, resp) {
                 request(pixabayUrl, { json: true }, (err, res, body) => {
                     if (err) { reject("error"); return console.log(err); }
                     allApiData["pixabay"] = res.body
+                    // console.log(res.body)
                     console.log("  Pixabay returned")
 
                     let promises = []
@@ -179,7 +167,7 @@ app.post('/api/app', function (req, resp) {
                         let promise= new Promise((r,f)=>{
         
                         
-                        download(hit.largeImageURL, `./ServerImages/${hit.id}.jpg`, r);
+                        functions.Download(fs, request, hit.largeImageURL, `./ServerImages/${hit.id}.jpg`, r );
                         i++
                         })
                         promises.push(promise)
