@@ -81,7 +81,7 @@ app.post('/api/app', function (req, resp) {
             error = Object.assign({}, error, { "geoname": "location not found" })
         }
 
-        if (allApiData.pixabay.total !== 0) {
+        if (allApiData.pixabay.total !== 0 && allApiData.pixabay.total !== undefined) {
             resApiData.pixabay = allApiData.pixabay.hits.map((hit) => {
                 return `/ServerImages/${hit.id.toString()}.jpg`
             });
@@ -90,8 +90,7 @@ app.post('/api/app', function (req, resp) {
             error = Object.assign({}, error, { "pixabay": "image not found" })
         }
 
-        if (allApiData.weatherbit) {
-
+        if (allApiData.weatherbit.data) {
             resApiData.weatherbit = {
                 "temp": allApiData.weatherbit.data[0].temp,
                 "weather": allApiData.weatherbit.data[0].weather
@@ -157,6 +156,10 @@ app.post('/api/app', function (req, resp) {
                 request(pixabayUrl, { json: true }, (err, res, body) => {
                     if (err) { reject("error"); return console.log(err); }
                     allApiData["pixabay"] = res.body
+                    if(res.body.hits==undefined){
+                        resolveThree()
+                        return
+                    }
                     // console.log(res.body)
                     console.log("  Pixabay returned")
 
